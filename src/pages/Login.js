@@ -32,7 +32,7 @@ export default function Login() {
 
       setAlert({ message: "Login Successful!", type: "success" });
       setTimeout(() => {
-        navigate("/");
+        navigate("/home");
       }, 1500); 
 
     } catch (err) {

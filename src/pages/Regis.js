@@ -12,12 +12,12 @@ export default function Regis() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // ฟังก์ชันอัปเดต state เมื่อมีการกรอกข้อมูล
+  // update state
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ฟังก์ชันส่งข้อมูลไป Backend
+  // Send to Backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -37,7 +37,7 @@ export default function Regis() {
         throw new Error(data.error || "Registration failed");
       }
 
-      navigate("/userdetail");
+      navigate("/home");
     } catch (err) {
       setError(err.message);
     }
@@ -123,7 +123,7 @@ export default function Regis() {
         {/* Login Link */}
         <p className="mt-4 text-center text-gray-600">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-500 font-semibold hover:underline">
+          <Link to="/" className="text-blue-500 font-semibold hover:underline">
             Login
           </Link>
         </p>
