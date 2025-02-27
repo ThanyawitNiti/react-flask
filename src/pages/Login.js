@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config/env";
+import AlertMessage from "../alert/Alert";
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [alert, setAlert] = useState(null);
   //Redicrect pages
   const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // clear error
+    setAlert(null); // clear alert before sending data
 
     try {
       const response = await fetch(`${BACKEND_URL}/login`, {
@@ -26,8 +30,10 @@ export default function Login() {
         throw new Error(data.error || "Login failed");
       }
 
-      alert("Login Successful!");
-      navigate("/userdetail"); // หลังจาก Login เสร็จ กลับไปหน้า Home
+      setAlert({ message: "Login Successful!", type: "success" });
+      setTimeout(() => {
+        navigate("/");
+      }, 1500); 
 
     } catch (err) {
       setError(err.message);
@@ -36,6 +42,7 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        {alert && <AlertMessage message={alert.message} type={alert.type} />}
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
@@ -82,7 +89,7 @@ export default function Login() {
         {/* Register Link */}
         <p className="mt-4 text-center text-gray-600">
           Don't have an account?{" "}
-          <Link to="/register" className="text-blue-500 font-semibold hover:underline">
+          <Link to="/regis" className="text-blue-500 font-semibold hover:underline">
             Register
           </Link>
         </p>

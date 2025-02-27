@@ -37,8 +37,7 @@ export default function Regis() {
         throw new Error(data.error || "Registration failed");
       }
 
-      alert("Registration Successful!");
-      navigate("/userdetail"); // ไปที่หน้า Login หลังจากสมัครเสร็จ
+      navigate("/userdetail");
     } catch (err) {
       setError(err.message);
     }
